@@ -7,8 +7,8 @@ const Banner = () => {
   <div className="hero-overlay bg-opacity-60"></div>
   <div className="hero-content text-center text-neutral-content">
     <div className="max-w-md">
-      <h1 className="mb-5 text-5xl text-white font-bold">Welcome to <span className='text-primary'>Fantastic Furniture</span></h1>
-      <p className="mb-5 text-lg text-white">Our Fantastic Furniture website for those people who wants to buy or sell their well home furnishings products and discover the most stylish, contemporary and chic furniture with a low price.</p>
+      <h1 className="mb-5 text-5xl text-secondary font-bold">HEY, I'M Mahmudul Haque Noor</h1>
+      <p className="mb-5 text-lg text-secondary">Our Fantastic Furniture website for those people who wants to buy or sell their well home furnishings products and discover the most stylish, contemporary and chic furniture with a low price.</p>
     </div>
   </div>
 </div>

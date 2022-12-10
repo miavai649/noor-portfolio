@@ -11,7 +11,7 @@ const Navbar = () => {
             <Link className='mr-14' to="/">Home</Link>
           </li>
           <li>
-            <Link className='mr-14'>My Resume <HiDownload className='text-2xl'></HiDownload></Link>
+            <a className='mr-14' href="https://drive.google.com/u/0/uc?id=1uQ0w3Vh0bOd-5OTb2nOyjSC7TtNB1jIl&export=download">My Resume <HiDownload className='text-2xl'></HiDownload></a>
           </li>
           <li>
             <Link className='mr-14' to="/contact">Contact Me</Link>
