@@ -4,68 +4,68 @@
     "image": "https://i.ibb.co/t2FcD9b/fantastic-Furniture.png",
     "title": "Fantastic Furniture",
     "summary": "Reselling website",
-    "details": [
-      {
-        "title": "Fantastic Furniture",
-        "description": "This is basically a secondhand furniture shop. Here, both the buyer and the seller can buy and sell furniture. This website uses the Stripe payment system with JWT security for firebase authentication.",
-        "feature": [
-          "Firebase authentication system",
-          "JWT verification system",
-          "Stripe payment system",
-          "Admin role with full control",
-          "Dashboard system"
-        ],
-        "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
-        "img": ["fImg1", "fImg2", "fImg3"],
-        "liveLink": "https://assignment-12-43568.web.app/",
-        "github": "https://github.com/miavai649/assignment-12-client"
-      }
-    ]
+    "details": {
+      "title": "Fantastic Furniture",
+      "description": "This is basically a secondhand furniture shop. Here, both the buyer and the seller can buy and sell furniture. This website uses the Stripe payment system with JWT security for firebase authentication.",
+      "feature": [
+        "Firebase authentication system",
+        "JWT verification system",
+        "Stripe payment system",
+        "Admin role with full control",
+        "Dashboard system"
+      ],
+      "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
+      "img1": "https://i.ibb.co/h1bMC3z/fimg1.png",
+      "img2": "https://i.ibb.co/1Z8VjXW/fimg2.png",
+      "img3": "https://i.ibb.co/4pzqw1B/fimg3.png",
+      "liveLink": "https://assignment-12-43568.web.app/",
+      "github": "https://github.com/miavai649/assignment-12-client"
+    }
   },
   {
     "id": 2,
     "image": "https://i.ibb.co/BTQL5tk/knowledge-Media.png",
     "title": "Knowledge Media",
     "summary": "Course selling website",
-    "details": [
-      {
-        "title": "Knowledge Media",
-        "description": "This is course selling website . User can buy course here .This is a demo website.",
-        "feature": [
-          "Full responsive",
-          "Interconnected With server",
-          "Private route",
-          "Dynamic route",
-          "Authentication system"
-        ],
-        "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
-        "img": ["kImg1", "kImg2", "kImg3"],
-        "liveLink": "https://assignment-10-2cb68.web.app/",
-        "github": "https://github.com/miavai649/assignment-10-client"
-      }
-    ]
+    "details": {
+      "title": "Knowledge Media",
+      "description": "This is course selling website . User can buy course here .This is a demo website.",
+      "feature": [
+        "Full responsive",
+        "Interconnected With server",
+        "Private route",
+        "Dynamic route",
+        "Authentication system"
+      ],
+      "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
+      "img1": "https://i.ibb.co/x2tnK3c/kimg1.png",
+      "img2": "https://i.ibb.co/xSmxcTD/kimg2.png",
+      "img3": "https://i.ibb.co/ZzP5TXg/kimg3.png",
+      "liveLink": "https://assignment-10-2cb68.web.app/",
+      "github": "https://github.com/miavai649/assignment-10-client"
+    }
   },
   {
     "id": 3,
     "image": "https://i.ibb.co/kgDdC5z/my-Cake-House.png",
     "title": "My Cake House",
     "summary": "Service review website",
-    "details": [
-      {
-        "title": "My Cake House",
-        "description": "This is a service review website. Here user can review services and also update their review",
-        "feature": [
-          "Almost fully functional with MongoDb server",
-          "Full responsive website",
-          "Real time review updates",
-          "Firebase Authentication system",
-          "Post your own services Feature"
-        ],
-        "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
-        "img": ["kImg1", "kImg2", "kImg3"],
-        "liveLink": "https://assignment-11-4e916.web.app/",
-        "github": "https://github.com/miavai649/assignment-11-client"
-      }
-    ]
+    "details": {
+      "title": "My Cake House",
+      "description": "This is a service review website. Here user can review services and also update their review",
+      "feature": [
+        "Almost fully functional with MongoDb server",
+        "Full responsive website",
+        "Real time review updates",
+        "Firebase Authentication system",
+        "Post your own services Feature"
+      ],
+      "technology": ["React", "JWT", "Firebase", "Express", "MongoDB"],
+      "img1": "https://i.ibb.co/BwWq5YN/cimg1.png",
+      "img2": "https://i.ibb.co/w6qKVKH/cimg2.png",
+      "img3": "https://i.ibb.co/Vtm6vD3/cimg3.png",
+      "liveLink": "https://assignment-11-4e916.web.app/",
+      "github": "https://github.com/miavai649/assignment-11-client"
+    }
   }
 ]

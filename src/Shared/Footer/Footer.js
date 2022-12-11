@@ -13,7 +13,7 @@ const Footer = () => {
     </p> 
     <p className='text-xl'><FaHome className='inline text-2xl'></FaHome> Dhaka, Bangladesh</p>
     <p className='text-xl'><FaPhoneAlt className='inline text-2xl'></FaPhoneAlt>  +8801779190094</p>
-    <p className='text-xl'><FaEnvelope className='inline text-2xl'></FaEnvelope>  mahmudulhaquenoor@gmail.comx</p>
+    <p className='text-xl'><FaEnvelope className='inline text-2xl'></FaEnvelope>  mahmudulhaquenoor@gmail.com</p>
     
   </div> 
   <div>
