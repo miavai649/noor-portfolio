@@ -8,13 +8,13 @@ const Navbar = () => {
     const menuItem = (
         <React.Fragment>
           <li>
-            <Link className='mr-14' to="/">Home</Link>
+            <Link className='mr-10' to="/">Home</Link>
           </li>
           <li>
-            <a className='mr-14' href="https://drive.google.com/u/0/uc?id=1uQ0w3Vh0bOd-5OTb2nOyjSC7TtNB1jIl&export=download">My Resume <HiDownload className='text-2xl'></HiDownload></a>
+            <a className='mr-10' href="https://drive.google.com/u/0/uc?id=1uQ0w3Vh0bOd-5OTb2nOyjSC7TtNB1jIl&export=download">My Resume <HiDownload className='text-2xl'></HiDownload></a>
           </li>
           <li>
-            <Link className='mr-14' to="/contact">Contact Me</Link>
+            <Link className='mr-10' to="/contact">Contact Me</Link>
           </li>
         </React.Fragment>
       );

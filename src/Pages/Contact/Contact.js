@@ -23,7 +23,7 @@ const Contact = () => {
   return (
       <div>
           <div className="hero min-h-screen bg-base-200" style={{ backgroundImage: `url(${contactBanner})` }}>
-      <div className="card w-[900px] shadow-2xl bg-base-100">
+      <div className="card w-2/3 shadow-2xl bg-base-100">
         <div className="card-body">
           <form ref={form} onSubmit={sendEmail}>
           <div className="form-control">

@@ -12,7 +12,7 @@ const Footer = () => {
     </p> 
     <p><FaHome className='inline text-2xl'></FaHome> Dhaka, Bangladesh</p>
     <p><FaPhoneAlt className='inline text-2xl'></FaPhoneAlt>  +8801779190094</p>
-    <p><FaEnvelope className='inline text-2xl'></FaEnvelope>  mahmudulhaquenoor@gmail.com</p>
+    <p><FaEnvelope className='inline text-2xl'></FaEnvelope>  mahmudulhaquenoor@gmail.comx</p>
     <p>Copyright © 2022 - Mahmudul Haque Noor</p>
   </div> 
   <div>
