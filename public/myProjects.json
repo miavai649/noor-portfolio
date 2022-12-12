@@ -17,7 +17,8 @@
     "img2": "https://i.ibb.co/1Z8VjXW/fimg2.png",
     "img3": "https://i.ibb.co/4pzqw1B/fimg3.png",
     "liveLink": "https://assignment-12-43568.web.app/",
-    "github": "https://github.com/miavai649/assignment-12-client"
+    "githubClient": "https://github.com/miavai649/assignment-12-client",
+    "githubServer": "https://github.com/miavai649/assignment-12-server"
   },
   {
     "id": 2,
@@ -37,7 +38,8 @@
     "img2": "https://i.ibb.co/xSmxcTD/kimg2.png",
     "img3": "https://i.ibb.co/ZzP5TXg/kimg3.png",
     "liveLink": "https://assignment-10-2cb68.web.app/",
-    "github": "https://github.com/miavai649/assignment-10-client"
+    "githubClient": "https://github.com/miavai649/assignment-10-client",
+    "githubServer": "https://github.com/miavai649/assignment-10-server"
   },
   {
     "id": 3,
@@ -57,6 +59,7 @@
     "img2": "https://i.ibb.co/w6qKVKH/cimg2.png",
     "img3": "https://i.ibb.co/Vtm6vD3/cimg3.png",
     "liveLink": "https://assignment-11-4e916.web.app/",
-    "github": "https://github.com/miavai649/assignment-11-client"
+    "githubClient": "https://github.com/miavai649/assignment-11-client",
+    "githubServer": "https://github.com/miavai649/assignment-11-server"
   }
 ]

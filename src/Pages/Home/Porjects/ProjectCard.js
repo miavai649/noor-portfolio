@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ProjectCard = ({project}) => {
-    const { id, image, title, summary, details } = project;
+    const { id, image, title, summary } = project;
   return (
     <div data-aos="fade-left"
     data-aos-anchor="#example-anchor"
