@@ -27,16 +27,16 @@ const Details = () => {
     project;
 
   return (
-    <div className="container mt-40 mx-auto h-screen">
+    <div className="container my-40 mx-auto">
       <div className="flex flex-col lg:flex-row gap-2">
-        <div className="carousel w-1/2">
+        <div className="carousel w-full lg:w-1/2">
           <div id="slide1" className="carousel-item relative w-full">
             <img src={img1} alt="" className="w-full" />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-              <a href="#slide3" className="btn btn-secondary btn-circle">
+              <a href="#slide3" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❮
               </a>
-              <a href="#slide2" className="btn btn-secondary btn-circle">
+              <a href="#slide2" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❯
               </a>
             </div>
@@ -44,10 +44,10 @@ const Details = () => {
           <div id="slide2" className="carousel-item relative w-full">
             <img src={img2} alt="" className="w-full" />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-              <a href="#slide1" className="btn btn-secondary btn-circle">
+              <a href="#slide1" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❮
               </a>
-              <a href="#slide3" className="btn btn-secondary btn-circle">
+              <a href="#slide3" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❯
               </a>
             </div>
@@ -55,10 +55,10 @@ const Details = () => {
           <div id="slide3" className="carousel-item relative w-full">
             <img src={img3} alt="" className="w-full" />
             <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-              <a href="#slide2" className="btn btn-secondary btn-circle">
+              <a href="#slide2" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❮
               </a>
-              <a href="#slide1" className="btn btn-secondary btn-circle">
+              <a href="#slide1" className="btn btn-sm lg:btn-md btn-secondary btn-circle">
                 ❯
               </a>
             </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { HiDownload } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/noor.png';
+import myResume from '../../assets/my-resume/Noor-Resume.pdf';
 
 const Navbar = () => {
 
@@ -21,7 +22,7 @@ const Navbar = () => {
             <a className='mr-10' href="#aboutme">About Me</a>
         </li>
         <li>
-            <a className='mr-10' href="https://drive.google.com/u/0/uc?id=1uQ0w3Vh0bOd-5OTb2nOyjSC7TtNB1jIl&export=download">My Resume <HiDownload className='text-2xl'></HiDownload></a>
+            <a className='mr-10' href={myResume} download='noor-resume'>My Resume <HiDownload className='text-2xl'></HiDownload></a>
           </li>
         </React.Fragment>
       );
