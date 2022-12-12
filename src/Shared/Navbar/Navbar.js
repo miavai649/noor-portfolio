@@ -17,6 +17,9 @@ const Navbar = () => {
           <li>
             <Link className='mr-10' to="/contact">Contact Me</Link>
         </li>
+          <li>
+            <a className='mr-10' href="#aboutme">About Me</a>
+        </li>
         <li>
             <a className='mr-10' href="https://drive.google.com/u/0/uc?id=1uQ0w3Vh0bOd-5OTb2nOyjSC7TtNB1jIl&export=download">My Resume <HiDownload className='text-2xl'></HiDownload></a>
           </li>

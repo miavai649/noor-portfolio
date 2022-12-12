@@ -3,7 +3,7 @@ import image from '../../../assets/images/bannerIMG3.jpg';
 
 const AboutMe = () => {
     return (
-        <div>
+        <div id='aboutme'>
       <div className="hero my-20 bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img src={image} alt="" className="w-3/5 rounded-lg shadow-2xl" />

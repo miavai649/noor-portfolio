@@ -71,8 +71,14 @@ const Details = () => {
           <h2 className="text-4xl font-bold">{title}</h2>
           <div className="flex gap-3 my-3">
             <a target='_blank' className="btn btn-primary" href={liveLink} rel="noreferrer"><FaExternalLinkAlt className="font-bold text-lg"></FaExternalLinkAlt></a>
+
             <a target='_blank' className="btn btn-primary" href={githubClient} rel="noreferrer"><FaCode className="font-bold text-lg"></FaCode></a>
+
             <a target='_blank' className="btn btn-primary" href={githubServer} rel="noreferrer"><FaServer className="font-bold text-lg"></FaServer></a>
+
+            {/* <a target='_blank' className="btn btn-primary" href={githubClient} rel="noreferrer"><FaCode className="font-bold text-lg"></FaCode></a> */}
+
+            {/* <a target='_blank' className="btn btn-primary" href={githubServer} rel="noreferrer"><FaServer className="font-bold text-lg"></FaServer></a> */}
           </div>
           <h3 className="text-2xl">Features & Technologies:</h3>
           <ul>
