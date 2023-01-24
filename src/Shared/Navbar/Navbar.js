@@ -2,7 +2,7 @@ import React from 'react';
 import { HiDownload } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import img from '../../assets/images/noor.png';
-import myResume from '../../assets/my-resume/Noor-Resume.pdf';
+import myResume from '../../assets/my-resume/Noor-Resume-Jr.pdf';
 
 const Navbar = () => {
 

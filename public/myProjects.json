@@ -8,7 +8,7 @@
     "feature": [
       "Firebase authentication system",
       "JWT verification system",
-      "Stripe payment system",
+      "Dynamic route",
       "Admin role with full control",
       "Dashboard system"
     ],
