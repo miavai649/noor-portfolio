@@ -53,7 +53,7 @@ const Navbar = () => {
                   to={item.to}
                   className={`${
                     scrolled ? 'text-gray-700' : 'text-white'
-                  } hover:text-yellow-500 px-3 py-2 rounded-md text-lg font-medium transition-colors  duration-300`}>
+                  } hover:text-yellow-500 px-3 py-2 rounded-md text-base font-semibold transition-colors  duration-300`}>
                   {item.name}
                 </Link>
               ))}
@@ -62,7 +62,7 @@ const Navbar = () => {
                 download='noor-resume'
                 className={`inline-flex items-center ${
                   scrolled ? 'text-gray-700' : 'text-white'
-                } hover:text-yellow-500 px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 group`}>
+                } hover:text-yellow-500 px-3 py-2 rounded-md text-base font-semibold transition-colors duration-300 group`}>
                 My Resume
                 <HiDownload className='ml-2 text-xl group-hover:animate-bounce' />
               </a>
