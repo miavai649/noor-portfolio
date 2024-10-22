@@ -29,7 +29,7 @@ const Navbar = () => {
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled ? 'bg-white shadow-lg text-gray-800' : 'bg-black/30 text-white'
       }`}>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+      <div className='container mx-auto px-4'>
         <div className='flex items-center justify-between h-20'>
           <div className='flex-shrink-0 flex items-center'>
             <img

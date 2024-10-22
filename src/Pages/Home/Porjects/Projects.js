@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ProjectCard from './ProjectCard'
 import { motion } from 'framer-motion'
 import Spinner from '../../../component/Spinner'
+import Divider from '../../../component/Divider'
 
 const Projects = () => {
   const [projects, setProjects] = useState([])
@@ -27,7 +28,7 @@ const Projects = () => {
   }
 
   return (
-    <section className='py-20'>
+    <section className='pb-20 bg-gray-100'>
       <div className='container mx-auto px-4'>
         <motion.h2
           className='text-4xl font-extrabold text-center text-gray-800 mb-12'
@@ -42,12 +43,8 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Divider */}
-        <div className='flex items-center justify-center my-10'>
-          <hr className='w-1/4 border-t-2 border-gray-500' />
-          <span className='mx-4 text-gray-600 text-lg font-semibold'>X</span>
-          <hr className='w-1/4 border-t-2 border-gray-500' />
-        </div>
+        {/* divider */}
+        <Divider />
       </div>
     </section>
   )
