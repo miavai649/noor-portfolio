@@ -22,7 +22,7 @@ const Footer = () => {
           <FaHome className='inline text-2xl'></FaHome> Dhaka, Bangladesh
         </p>
         <p className='text-xl'>
-          <FaPhoneAlt className='inline text-2xl'></FaPhoneAlt> +8801779190094
+          <FaPhoneAlt className='inline text-2xl'></FaPhoneAlt> +88 01603491969
         </p>
         <p className='text-xl'>
           <FaEnvelope className='inline text-2xl'></FaEnvelope>{' '}

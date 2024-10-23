@@ -13,12 +13,12 @@ const MyContactInfo = () => {
   const personalInfo = {
     name: 'Mahmudul Haque Noor',
     title: 'MERN Stack Developer',
-    email: 'your.email@example.com',
-    location: 'Your Location',
-    phone: '+1234567890', // Phone number added here
+    email: 'mahmudulhaquenoor@gmail.com',
+    location: 'Dhaka, Bangladesh',
+    phone: '+88 01603491969',
     image: 'https://i.ibb.co.com/6YHpRPt/IMG-20241023-013157.jpg',
     languages: [
-      { name: 'English', proficiency: 90 },
+      { name: 'English', proficiency: 75 },
       { name: 'Bangla', proficiency: 100 },
       { name: 'Hindi', proficiency: 80 }
     ]
