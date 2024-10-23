@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { HiDownload, HiMenu, HiX } from 'react-icons/hi'
-import { Link } from 'react-router-dom'
 import img from '../../assets/images/noor.jpg'
 import myResume from '../../assets/my-resume/Noor-Resume-Jr.pdf'
 
@@ -18,11 +17,30 @@ const Navbar = () => {
   }, [])
 
   const menuItems = [
-    { name: 'Home', to: '/' },
-    { name: 'Blog', to: '/blog' },
-    { name: 'Contact Me', to: '/contact' },
-    { name: 'About Me', to: '#aboutme' }
+    { name: 'Home', to: 'home' },
+    { name: 'Skills', to: 'skills' },
+    { name: 'Projects', to: 'projects' },
+    { name: 'About', to: 'about' },
+    { name: 'Blog', to: 'blog' },
+    { name: 'Contact', to: 'contact' }
   ]
+
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault()
+    const targetElement = document.getElementById(targetId)
+    if (targetElement) {
+      const navbarHeight = 80 // Adjust this value based on your navbar height
+      const targetPosition =
+        targetElement.getBoundingClientRect().top +
+        window.pageYOffset -
+        navbarHeight
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      })
+    }
+    setIsOpen(false) // Close mobile menu after clicking
+  }
 
   return (
     <nav
@@ -48,14 +66,15 @@ const Navbar = () => {
           <div className='hidden md:block'>
             <div className='ml-10 flex items-baseline space-x-4'>
               {menuItems.map((item) => (
-                <Link
+                <a
                   key={item.name}
-                  to={item.to}
+                  href={`#${item.to}`}
+                  onClick={(e) => handleNavClick(e, item.to)}
                   className={`${
                     scrolled ? 'text-gray-700' : 'text-white'
-                  } hover:text-yellow-500 px-3 py-2 rounded-md text-base font-semibold transition-colors  duration-300`}>
+                  } hover:text-yellow-500 px-3 py-2 rounded-md text-base font-semibold transition-colors duration-300`}>
                   {item.name}
-                </Link>
+                </a>
               ))}
               <a
                 href={myResume}
@@ -94,14 +113,15 @@ const Navbar = () => {
             scrolled ? 'bg-white' : 'bg-black/30'
           } shadow-lg`}>
           {menuItems.map((item) => (
-            <Link
+            <a
               key={item.name}
-              to={item.to}
+              href={`#${item.to}`}
+              onClick={(e) => handleNavClick(e, item.to)}
               className={`${
                 scrolled ? 'text-gray-700' : 'text-white'
               } hover:text-yellow-500 block px-3 py-2 rounded-md text-base font-medium transition-colors duration-300`}>
               {item.name}
-            </Link>
+            </a>
           ))}
           <a
             href={myResume}

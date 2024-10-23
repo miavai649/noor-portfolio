@@ -6,12 +6,12 @@ import Divider from '../../../component/Divider'
 const ContactMe = () => {
   return (
     <section
+      id='contact'
       className='py-20 bg-cover bg-center'
       style={{
-        backgroundImage:
-          'url(https://img.freepik.com/free-photo/contact-us-communication-support-service-assistance-concept_53876-128103.jpg?t=st=1729636891~exp=1729640491~hmac=8f30b94b2cdfd50ddbf1cdfd4004f0420fad2a970c7d5309403afc1a138d7700&w=1480)'
+        backgroundImage: 'url(https://i.ibb.co.com/z2v7s16/128103.jpg)'
       }}>
-      <div className='container mx-auto px-4'>
+      <div className='container mx-auto px-4 pt10'>
         <motion.h2
           className='text-4xl font-extrabold text-center text-white mb-12'
           initial={{ opacity: 0, y: -50 }}
