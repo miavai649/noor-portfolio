@@ -1,7 +1,9 @@
+import AddSkillsModal from '../../../component/AddSkillsModal'
+
 const Skills = () => {
   return (
     <div>
-      <h1>This is Skills component</h1>
+      <AddSkillsModal />
     </div>
   )
 }

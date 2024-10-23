@@ -60,7 +60,6 @@ const AddProjectModal = () => {
   const onSubmit = (data) => {
     const formData = { ...data, technologies }
     console.log(formData, imageFiles)
-    // Handle form submission here
     closeModal()
   }
 
