@@ -1,7 +1,9 @@
+import AddExperienceModal from '../../../component/AddExperienceModal'
+
 const Experience = () => {
   return (
     <div>
-      <h1>This is Experience component</h1>
+      <AddExperienceModal />
     </div>
   )
 }

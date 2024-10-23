@@ -195,13 +195,15 @@ const AddProjectModal = () => {
                 </div>
               )}
 
-              <div className='modal-action'>
-                <button type='submit' className='btn btn-primary'>
-                  Add Project
+              <div className='modal-action flex gap-4 justify-end'>
+                <button
+                  type='submit'
+                  className='btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all'>
+                  Submit
                 </button>
                 <button
                   type='button'
-                  className='btn text-gray-600'
+                  className='btn bg-white border border-gray-400 text-gray-600 hover:text-white hover:bg-red-500 hover:border-red-500 focus:ring focus:ring-red-300 transition-all'
                   onClick={closeModal}>
                   Cancel
                 </button>
