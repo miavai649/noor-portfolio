@@ -4,8 +4,7 @@ import { motion } from 'framer-motion'
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
 
 const ProjectCard = ({ project }) => {
-  const { id, image, title, summary, technology, liveLink, githubClient } =
-    project
+  const { id, image, title, summary, liveLink, githubClient } = project
 
   return (
     <motion.div
