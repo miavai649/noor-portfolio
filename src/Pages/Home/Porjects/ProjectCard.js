@@ -42,17 +42,10 @@ const ProjectCard = ({ project }) => {
           </div>
         </div>
       </div>
-      <div className='p-6'>
-        <h3 className='text-xl font-bold mb-2'>{title}</h3>
-        <p className='text-gray-600 mb-4'>{summary}</p>
-        <div className='flex flex-wrap gap-2 mb-4'>
-          {technology.map((tech, index) => (
-            <span
-              key={index}
-              className='px-2 py-1 bg-yellow-400 text-xs font-semibold text-yellow-900 rounded-full'>
-              {tech}
-            </span>
-          ))}
+      <div className='p-6 flex justify-between items-center'>
+        <div>
+          <h3 className='text-xl font-bold mb-2'>{title}</h3>
+          <p className='text-gray-600 mb-4'>{summary}</p>
         </div>
         <Link
           to={`/details/${id}`}
