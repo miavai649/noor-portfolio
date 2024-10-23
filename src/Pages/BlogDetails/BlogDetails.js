@@ -1,13 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import {
-  FaCalendar,
-  FaUser,
-  FaTags,
-  FaTwitter,
-  FaFacebookF,
-  FaLinkedinIn
-} from 'react-icons/fa'
+import { FaCalendar, FaUser, FaTags } from 'react-icons/fa'
 import Spinner from '../../component/Spinner'
 
 const dummyBlogPost = {
