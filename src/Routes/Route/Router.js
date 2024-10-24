@@ -8,6 +8,7 @@ import Skills from '../../Pages/Dashboard/Skills/Skills'
 import Experience from '../../Pages/Dashboard/Experience/Experience'
 import Projects from '../../Pages/Dashboard/Projects/Projects'
 import Blogs from '../../Pages/Dashboard/Blogs/Blogs'
+import Login from '../../Pages/login/Login'
 
 export const router = createBrowserRouter([
   {
@@ -49,5 +50,9 @@ export const router = createBrowserRouter([
         element: <Blogs />
       }
     ]
+  },
+  {
+    path: '/login',
+    element: <Login />
   }
 ])
