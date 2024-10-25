@@ -1,15 +1,56 @@
 import React, { useState } from 'react'
-import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useForm } from 'react-hook-form'
+import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import { useLoginMutation } from '../../redux/features/auth/authApi'
+import toast from 'react-hot-toast'
+import { useDispatch } from 'react-redux'
+import { verifyToken } from '../../utils/verifyToken'
+import { setUser } from '../../redux/features/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    // Handle login logic here
-    console.log('Login attempt with:', { email, password })
+  const dispatch = useDispatch()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  const [loginUser, { isLoading }] = useLoginMutation()
+
+  const navigate = useNavigate()
+
+  const onSubmit = async (data) => {
+    const res = await loginUser(data)
+
+    try {
+      if (res.error) {
+        toast.error(res.error.data.message, {
+          duration: 2000
+        })
+      } else {
+        toast.success(res.data.message, {
+          duration: 2000
+        })
+
+        const token = res.data?.data?.accessToken
+        const decoded = await verifyToken(token)
+        console.log('🚀 ~ onSubmit ~ decoded:', decoded)
+
+        dispatch(
+          setUser({
+            token: res.data?.data?.accessToken,
+            user: decoded
+          })
+        )
+        navigate('/dashboard')
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 })
+    }
   }
 
   return (
@@ -18,7 +59,7 @@ const Login = () => {
         <h2 className='text-2xl font-bold text-center text-gray-800 mb-6'>
           Welcome Back
         </h2>
-        <form onSubmit={handleSubmit} className='space-y-6'>
+        <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
           <div className='relative'>
             <label className='input input-bordered flex items-center gap-2'>
               <svg
@@ -31,10 +72,20 @@ const Login = () => {
               </svg>
               <input
                 type='text'
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value: /^\S+@\S+$/i,
+                    message: 'Enter a valid email address'
+                  }
+                })}
                 className='grow focus:outline-none focus:ring-0 focus:border-transparent'
                 placeholder='Email'
               />
             </label>
+            {errors.email && (
+              <p className='text-red-500 text-sm'>{errors.email.message}</p>
+            )}
           </div>
 
           <div className='input input-bordered flex items-center gap-2 relative'>
@@ -51,11 +102,15 @@ const Login = () => {
             </svg>
             <input
               type={showPassword ? 'text' : 'password'}
+              {...register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Password must be at least 6 characters long'
+                }
+              })}
               className='grow focus:outline-none focus:ring-0 focus:border-transparent'
               placeholder='Enter your password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
             />
             <button
               type='button'
@@ -68,6 +123,9 @@ const Login = () => {
               )}
             </button>
           </div>
+          {errors.password && (
+            <p className='text-red-500 text-sm'>{errors.password.message}</p>
+          )}
 
           <div className='flex items-center justify-between'>
             <div className='flex items-center'>
@@ -84,17 +142,19 @@ const Login = () => {
               </label>
             </div>
             <div className='text-sm'>
-              <a
-                href='/login'
-                className='font-medium  hover:text-primary-focus'>
+              <a href='/login' className='font-medium hover:text-primary-focus'>
                 Forgot your password?
               </a>
             </div>
           </div>
 
           <div>
-            <button type='submit' className='btn btn-primary w-full'>
-              Sign in
+            <button
+              type='submit'
+              className={`btn btn-primary w-full ${
+                isLoading && 'loading loading-spinner'
+              }`}>
+              {isLoading ? 'Signing in' : 'Sign in'}
             </button>
           </div>
         </form>

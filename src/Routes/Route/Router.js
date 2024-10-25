@@ -9,6 +9,7 @@ import Experience from '../../Pages/Dashboard/Experience/Experience'
 import Projects from '../../Pages/Dashboard/Projects/Projects'
 import Blogs from '../../Pages/Dashboard/Blogs/Blogs'
 import Login from '../../Pages/login/Login'
+import ProtectedRoute from '../../layout/ProtectedRoute'
 
 export const router = createBrowserRouter([
   {
@@ -35,19 +36,35 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Projects />
+        element: (
+          <ProtectedRoute>
+            <Projects />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'skills',
-        element: <Skills />
+        element: (
+          <ProtectedRoute>
+            <Skills />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'experience',
-        element: <Experience />
+        element: (
+          <ProtectedRoute>
+            <Experience />
+          </ProtectedRoute>
+        )
       },
       {
         path: 'blogs',
-        element: <Blogs />
+        element: (
+          <ProtectedRoute>
+            <Blogs />
+          </ProtectedRoute>
+        )
       }
     ]
   },
