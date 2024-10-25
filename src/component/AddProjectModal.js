@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaImage, FaTrash, FaTimes, FaPlus, FaPlusCircle } from 'react-icons/fa'
+import { useAddProjectMutation } from '../redux/features/project/projectApi'
+import toast from 'react-hot-toast'
 
 const AddProjectModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -57,10 +59,39 @@ const AddProjectModal = () => {
     setTechnologies(technologies.filter((t) => t !== tech))
   }
 
-  const onSubmit = (data) => {
-    const formData = { ...data, technologies }
-    console.log(formData, imageFiles)
-    closeModal()
+  const [handleAddProject, { isLoading }] = useAddProjectMutation()
+
+  const onSubmit = async (data) => {
+    const formData = new FormData()
+
+    const projectData = {
+      ...data,
+      technologies: technologies
+    }
+
+    formData.append('payload', JSON.stringify(projectData))
+
+    for (const image of imageFiles) {
+      formData.append('projectImages', image)
+    }
+
+    try {
+      const res = await handleAddProject(formData)
+
+      if (res.error) {
+        toast.error(res.error.data.message, {
+          duration: 2000
+        })
+      } else {
+        toast.success('Project created successfully', {
+          duration: 2000
+        })
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 })
+    } finally {
+      closeModal()
+    }
   }
 
   return (
@@ -198,8 +229,10 @@ const AddProjectModal = () => {
               <div className='modal-action flex gap-4 justify-end'>
                 <button
                   type='submit'
-                  className='btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all'>
-                  Submit
+                  className={`btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all ${
+                    isLoading && 'loading loading-spinner'
+                  }`}>
+                  {isLoading ? 'Loading' : 'Submit'}
                 </button>
                 <button
                   type='button'
