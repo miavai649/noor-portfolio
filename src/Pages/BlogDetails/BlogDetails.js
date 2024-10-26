@@ -1,136 +1,112 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
+import { FaArrowLeft, FaCalendarAlt, FaUser, FaTags } from 'react-icons/fa'
 import { motion } from 'framer-motion'
-import { FaCalendar, FaUser, FaTags } from 'react-icons/fa'
+import { useGetSingleBlogQuery } from '../../redux/features/blog/blogApi'
+import moment from 'moment'
 import Spinner from '../../component/Spinner'
 
-const dummyBlogPost = {
-  id: 1,
-  title: 'Mastering React Hooks: A Comprehensive Guide',
-  author: 'Mahmudul Haque Noor',
-  date: '2024-03-15',
-  tags: ['React', 'JavaScript', 'Web Development'],
-  coverImage: 'https://i.ibb.co.com/Z2yfxtY/0-y6-Ic-Be5-J1-Ad-ALz-Xw.webp',
-  mainContent: `
-    <p>React Hooks revolutionized the way developers build React applications. Introduced in React 16.8, hooks allow you to use state and other React features without writing a class. This guide covers some of the most commonly used hooks and how they simplify your React code.</p>
-    
-    <h2>1. The useState Hook</h2>
-    <p>The useState hook lets you add state to functional components. Instead of managing state in a class, you can now manage it directly in functional components.</p>
-    <pre><code>const [count, setCount] = useState(0);</code></pre>
-    <p>This hook returns an array with two elements: the current state and a function to update that state.</p>
-
-    <h2>2. The useEffect Hook</h2>
-    <p>The useEffect hook enables you to perform side effects in functional components. You can think of it as a combination of componentDidMount, componentDidUpdate, and componentWillUnmount in class-based components.</p>
-    <pre><code>useEffect(() => {
-  document.title = \`You clicked \${count} times\`;
-}, [count]);</code></pre>
-    <p>This hook runs after every render by default. You can control when it runs by passing an array of dependencies.</p>
-
-    <h2>3. The useContext Hook</h2>
-    <p>The useContext hook allows you to use context values in your functional components without having to use Context.Consumer in class-based components. It helps to make the code more readable and maintainable.</p>
-    <pre><code>const theme = useContext(ThemeContext);</code></pre>
-
-    <h2>4. Custom Hooks</h2>
-    <p>With custom hooks, you can extract reusable logic from your components and share them across your project. This is a powerful way to avoid code duplication.</p>
-    <pre><code>function useWindowWidth() {
-  const [width, setWidth] = useState(window.innerWidth);
-  
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-  
-  return width;
-}</code></pre>
-    <p>In this example, the custom hook useWindowWidth tracks the window width and returns the current width.</p>
-
-    <h2>Conclusion</h2>
-    <p>React Hooks provide a more intuitive and flexible way to work with React's features. By mastering these hooks, you can write more concise, readable, and maintainable React code. Keep exploring and experimenting with hooks to unlock their full potential in your projects!</p>
-  `
-}
-
 const BlogDetails = () => {
-  const [blog, setBlog] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { id } = useParams()
+
+  const { data: blogData } = useGetSingleBlogQuery(id)
+  const blog = blogData?.data
+
+  const formattedDate = blog?.createdAt
+    ? moment(blog.createdAt).format('YYYY-MM-DD')
+    : ''
 
   useEffect(() => {
-    // Simulating an API call delay
-    const timer = setTimeout(() => {
-      setBlog(dummyBlogPost)
-      setLoading(false)
-    }, 1000)
-
-    return () => clearTimeout(timer)
+    window.scrollTo(0, 0)
   }, [])
 
-  if (loading) {
+  if (!blogData) {
     return <Spinner />
   }
 
-  if (!blog) {
-    return <div className='text-center text-2xl mt-10'>Blog post not found</div>
-  }
-
   return (
-    <motion.article
-      className='max-w-4xl mx-auto px-4 py-32'
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+    <motion.div
+      className='min-h-screen bg-gradient-to-b from-base-200 to-base-300'
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}>
-      <motion.h1
-        className='text-4xl md:text-5xl font-bold text-gray-800 mb-6'
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.5 }}>
-        {blog.title}
-      </motion.h1>
+      <div className='container mx-auto px-4 py-32'>
+        <motion.div
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}>
+          <Link
+            to='/'
+            className='btn btn-ghost mb-8 inline-flex items-center hover:bg-base-300'>
+            <FaArrowLeft className='mr-2' /> Back to Blogs
+          </Link>
+        </motion.div>
 
-      <motion.div
-        className='flex flex-wrap items-center text-gray-600 mb-8'
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4, duration: 0.5 }}>
-        <span className='flex items-center mr-6 mb-2'>
-          <FaCalendar className='mr-2 text-yellow-500' />
-          {new Date(blog.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}
-        </span>
-        <span className='flex items-center mr-6 mb-2'>
-          <FaUser className='mr-2 text-yellow-500' />
-          {blog.author}
-        </span>
-        <span className='flex items-center mb-2'>
-          <FaTags className='mr-2 text-yellow-500' />
-          {blog.tags.join(', ')}
-        </span>
-      </motion.div>
+        <motion.div
+          className='bg-base-100 shadow-2xl rounded-lg overflow-hidden'
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}>
+          <div className='relative h-64 md:h-96'>
+            <motion.img
+              src={blog?.coverImage}
+              alt={blog?.title}
+              className='w-full h-full object-cover'
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5 }}
+            />
+            <div className='absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center'>
+              <motion.h1
+                className='text-4xl md:text-6xl font-bold text-white text-center px-4 max-w-4xl'
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5, duration: 0.5 }}>
+                {blog?.title}
+              </motion.h1>
+            </div>
+          </div>
+          <div className='p-6 md:p-10'>
+            <motion.div
+              className='flex flex-wrap items-center justify-between mb-6 text-sm text-base-content opacity-70'
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.6, duration: 0.5 }}>
+              <div className='flex items-center mb-2 md:mb-0'>
+                <FaUser className='mr-2' />
+                <span>{blog?.author}</span>
+              </div>
+              <div className='flex items-center mb-2 md:mb-0'>
+                <FaCalendarAlt className='mr-2' />
+                <span>{formattedDate}</span>
+              </div>
+              <div className='flex items-center'>
+                <FaTags className='mr-2' />
+                <div className='flex flex-wrap gap-2'>
+                  {blog?.tags?.map((tag, index) => (
+                    <motion.span
+                      key={index}
+                      className='badge badge-primary badge-outline shadow-md shadow-gray-400'
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}>
+                      {tag}
+                    </motion.span>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
 
-      <motion.div
-        className='mb-10'
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.5 }}>
-        <img
-          src={blog.coverImage}
-          alt={blog.title}
-          className='w-full h-64 md:h-96 object-cover rounded-lg shadow-lg'
-        />
-      </motion.div>
-
-      <motion.div
-        className='prose prose-lg max-w-none'
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-        dangerouslySetInnerHTML={{ __html: blog.mainContent }}
-      />
-    </motion.article>
+            <motion.div
+              className='prose prose-lg max-w-none'
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.7, duration: 0.5 }}>
+              <div dangerouslySetInnerHTML={{ __html: blog?.mainContent }} />
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
   )
 }
 

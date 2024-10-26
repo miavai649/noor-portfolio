@@ -25,7 +25,6 @@ const ProjectDetails = () => {
     ? moment(project.endDate).format('YYYY-MM-DD')
     : ''
 
-  // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])

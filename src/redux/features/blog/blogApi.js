@@ -2,34 +2,34 @@ import { baseApi } from '../../api/baseApi'
 
 const blogApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllProjects: builder.query({
-    //   query: () => {
-    //     return {
-    //       url: '/project/get-all',
-    //       method: 'GET'
-    //     }
-    //   },
-    //   transformResponse: (response) => {
-    //     return {
-    //       data: response.data
-    //     }
-    //   },
-    //   providesTags: ['project']
-    // }),
-    // getSingleProject: builder.query({
-    //   query: (params) => {
-    //     return {
-    //       url: `/project/get-single/${params}`,
-    //       method: 'GET'
-    //     }
-    //   },
-    //   transformResponse: (response) => {
-    //     return {
-    //       data: response.data
-    //     }
-    //   },
-    //   providesTags: ['project']
-    // }),
+    getAllBlogs: builder.query({
+      query: () => {
+        return {
+          url: '/blog/get-all',
+          method: 'GET'
+        }
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data
+        }
+      },
+      providesTags: ['blog']
+    }),
+    getSingleBlog: builder.query({
+      query: (params) => {
+        return {
+          url: `/blog/get-single/${params}`,
+          method: 'GET'
+        }
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data
+        }
+      },
+      providesTags: ['blog']
+    }),
     addBlog: builder.mutation({
       query: (payload) => {
         return {
@@ -62,4 +62,8 @@ const blogApi = baseApi.injectEndpoints({
   })
 })
 
-export const { useAddBlogMutation } = blogApi
+export const {
+  useAddBlogMutation,
+  useGetAllBlogsQuery,
+  useGetSingleBlogQuery
+} = blogApi
