@@ -10,6 +10,7 @@ import {
 } from 'react-icons/fa'
 import { useGetSingleProjectQuery } from '../../redux/features/project/projectApi'
 import moment from 'moment'
+import Spinner from '../../component/Spinner'
 
 const ProjectDetails = () => {
   const { id } = useParams()
@@ -30,11 +31,7 @@ const ProjectDetails = () => {
   }, [])
 
   if (!project) {
-    return (
-      <div className='flex justify-center items-center h-screen'>
-        Loading...
-      </div>
-    )
+    return <Spinner />
   }
 
   return (

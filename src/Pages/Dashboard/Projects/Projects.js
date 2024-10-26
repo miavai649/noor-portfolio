@@ -1,29 +1,10 @@
-import { useEffect, useState } from 'react'
 import AddProjectModal from '../../../component/AddProjectModal'
 import Spinner from '../../../component/Spinner'
 import ProjectCard from '../../Home/Porjects/ProjectCard'
 import { useGetAllProjectsQuery } from '../../../redux/features/project/projectApi'
 
 const Projects = () => {
-  const [projects, setProjects] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    fetch(
-      'https://raw.githubusercontent.com/miavai649/noor-portfolio/main/public/myProjects.json'
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data)
-        setIsLoading(false)
-      })
-      .catch((error) => {
-        console.error('Error fetching projects:', error)
-        setIsLoading(false)
-      })
-  }, [])
-  const { data: projectsData } = useGetAllProjectsQuery({})
-  console.log('🚀 ~ Projects ~ projectsData:', projectsData)
+  const { data: projectsData, isLoading } = useGetAllProjectsQuery({})
 
   if (isLoading) {
     return <Spinner />
@@ -38,11 +19,15 @@ const Projects = () => {
 
       <div className='h-1 w-full bg-gradient-to-r from-gray-300 via-gray-500 to-gray-300 my-6'></div>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
-        {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
-        ))}
-      </div>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          {projectsData?.data?.map((project) => (
+            <ProjectCard key={project?._id} project={project} />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
