@@ -1,6 +1,6 @@
 import { baseApi } from '../../api/baseApi'
 
-const postApi = baseApi.injectEndpoints({
+const projectApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllProjects: builder.query({
       query: () => {
@@ -66,4 +66,4 @@ export const {
   useAddProjectMutation,
   useGetAllProjectsQuery,
   useGetSingleProjectQuery
-} = postApi
+} = projectApi

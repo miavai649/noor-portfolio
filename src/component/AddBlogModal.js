@@ -5,12 +5,13 @@ import { FaImage, FaPlus, FaPlusCircle, FaTimes, FaTrash } from 'react-icons/fa'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import uploadImageToCloudinary from '../utils/uploadImageToCloudinary'
+import { useAddBlogMutation } from '../redux/features/blog/blogApi'
 
 const modules = {
   toolbar: {
     container: [
       [{ header: [1, 2, false] }],
-      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote', 'code-block'], // Add 'code-block' here
       [
         { list: 'ordered' },
         { list: 'bullet' },
@@ -65,7 +66,8 @@ const formats = [
   'bullet',
   'indent',
   'link',
-  'image'
+  'image',
+  'code-block'
 ]
 
 const AddBlogModal = () => {
@@ -121,10 +123,36 @@ const AddBlogModal = () => {
     setTags(tags.filter((t) => t !== tag))
   }
 
-  const onSubmit = (data) => {
-    const formData = { ...data, tags, content }
-    console.log(formData, imageFile)
-    closeModal()
+  const [handleAddBlog, { isLoading }] = useAddBlogMutation()
+
+  const onSubmit = async (data) => {
+    const formData = new FormData()
+
+    const projectData = {
+      ...data,
+      tags,
+      author: 'Mahmudul Haque Noor',
+      mainContent: content
+    }
+
+    formData.append('payload', JSON.stringify(projectData))
+
+    if (imageFile) {
+      formData.append('coverImage', imageFile)
+    }
+
+    try {
+      const res = await handleAddBlog(formData)
+
+      if ('error' in res) {
+        toast.error('Failed to create project', { duration: 2000 })
+      } else {
+        toast.success('Blog created successfully', { duration: 2000 })
+        closeModal()
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 })
+    }
   }
 
   return (
@@ -271,8 +299,12 @@ const AddBlogModal = () => {
                 </div>
 
                 <div className='flex justify-end gap-4 mt-10'>
-                  <button type='submit' className='btn btn-primary'>
-                    Submit
+                  <button
+                    type='submit'
+                    className={`btn btn-primary $${
+                      isLoading && 'loading loading-spinner'
+                    }`}>
+                    {isLoading ? 'Submitting...' : 'Submit'}
                   </button>
                   <button
                     type='button'
