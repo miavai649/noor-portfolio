@@ -1,74 +1,70 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {
   FaGithub,
   FaExternalLinkAlt,
   FaCalendarAlt,
-  FaArrowLeft
+  FaArrowLeft,
+  FaTags,
+  FaLightbulb
 } from 'react-icons/fa'
-
-const project = {
-  id: '1',
-  title: 'Task Management App',
-  shortDescription:
-    'A collaborative task management tool with real-time updates.',
-  longDescription:
-    'This task management application was designed to streamline team collaboration and project organization. It features real-time updates, allowing team members to see changes instantly, and integrates with popular productivity tools to create a seamless workflow.',
-  thumbnail: '/placeholder.svg?height=600&width=800',
-  technologies: [
-    'Vue.js',
-    'Firebase',
-    'Vuex',
-    'Element UI',
-    'Google Calendar API',
-    'WebSockets',
-    'Node.js'
-  ],
-  features: [
-    'Real-time task updates',
-    'Team collaboration tools',
-    'Project timeline visualization',
-    'Integration with Google Calendar',
-    'File attachment and sharing',
-    'Customizable project boards',
-    'Advanced filtering and sorting options'
-  ],
-  githubLink: 'https://github.com/yourusername/task-management-app',
-  liveLink: 'https://task-management-app-demo.com',
-  startDate: '2023-07-01',
-  endDate: '2023-11-30'
-}
+import { useGetSingleProjectQuery } from '../../redux/features/project/projectApi'
+import moment from 'moment'
 
 const ProjectDetails = () => {
   const { id } = useParams()
-  console.log('🚀 ~ ProjectDetails ~ id:', id)
+
+  const { data: projectData } = useGetSingleProjectQuery(id)
+  const project = projectData?.data
+
+  const formattedStartDate = project?.startDate
+    ? moment(project.startDate).format('YYYY-MM-DD')
+    : ''
+  const formattedEndDate = project?.endDate
+    ? moment(project.endDate).format('YYYY-MM-DD')
+    : ''
+
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
+  if (!project) {
+    return (
+      <div className='flex justify-center items-center h-screen'>
+        Loading...
+      </div>
+    )
+  }
 
   return (
-    <div className='container mx-auto px-4 py-32'>
-      <Link
-        to='/projects'
-        className='btn btn-ghost mb-8 inline-flex items-center'>
-        <FaArrowLeft className='mr-2' /> Back to Projects
-      </Link>
-      <div className='bg-base-100 shadow-xl rounded-lg overflow-hidden'>
-        <div className='relative h-64 md:h-96'>
-          <img
-            src={project.thumbnail}
-            alt={project.title}
-            className='w-full h-full object-cover'
-          />
-          <div className='absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center'>
-            <h1 className='text-4xl md:text-6xl font-bold text-white text-center px-4'>
+    <div className='min-h-screen bg-gradient-to-b from-base-200 to-base-300'>
+      <div className='container mx-auto px-4 py-32'>
+        <Link
+          to='/'
+          className='mb-8 inline-flex items-center px-4 py-2 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-600 hover:shadow-lg transition-all duration-200 ease-in-out'>
+          <FaArrowLeft className='mr-2' /> Back to home
+        </Link>
+
+        <div className='grid md:grid-cols-2 gap-8 mb-12'>
+          <div className='relative overflow-hidden rounded-lg shadow-2xl'>
+            <img
+              src={project.thumbnail}
+              alt={project.title}
+              className='w-full h-full object-cover transform hover:scale-110 transition-transform duration-500'
+            />
+          </div>
+          <div className='flex flex-col justify-center'>
+            <h1 className='text-4xl md:text-6xl font-bold text-primary mb-4'>
               {project.title}
             </h1>
-          </div>
-        </div>
-        <div className='p-6 md:p-10'>
-          <div className='flex flex-wrap items-center justify-between mb-6'>
-            <div className='flex items-center text-base-content opacity-70 mb-2 md:mb-0'>
+            <p className='text-xl text-base-content mb-6'>
+              {project.shortDescription}
+            </p>
+            <div className='flex items-center text-base-content opacity-70 mb-6'>
               <FaCalendarAlt className='mr-2' />
               <span>
-                {project.startDate} - {project.endDate}
+                {formattedStartDate} - {formattedEndDate}
               </span>
             </div>
             <div className='flex space-x-4'>
@@ -88,33 +84,45 @@ const ProjectDetails = () => {
               </a>
             </div>
           </div>
-          <p className='text-xl text-base-content mb-8'>
-            {project.longDescription}
-          </p>
-          <div className='grid md:grid-cols-2 gap-8 mb-8'>
-            <div>
-              <h2 className='text-2xl font-bold mb-4 text-primary'>
-                Technologies Used
-              </h2>
-              <div className='flex flex-wrap gap-2'>
-                {project.technologies.map((tech, index) => (
-                  <span key={index} className='badge badge-primary'>
-                    {tech}
-                  </span>
-                ))}
+        </div>
+
+        <div className='bg-base-100 shadow-xl rounded-lg overflow-hidden'>
+          <div className='p-6 md:p-10'>
+            <h2 className='text-3xl font-bold mb-6 text-primary'>
+              Project Overview
+            </h2>
+            <p className='text-xl text-base-content mb-8'>
+              {project.longDescription}
+            </p>
+
+            <div className='grid md:grid-cols-2 gap-8 mb-8'>
+              <div className='bg-base-200 p-6 rounded-lg'>
+                <h3 className='text-2xl font-bold mb-4 flex items-center'>
+                  <FaTags className='mr-2 ' /> Technologies Used
+                </h3>
+                <div className='flex flex-wrap gap-2'>
+                  {project.technologies?.map((tech, index) => (
+                    <span key={index} className='badge badge-primary badge-lg'>
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div>
-              <h2 className='text-2xl font-bold mb-4 text-primary'>
-                Key Features
-              </h2>
-              <ul className='list-disc list-inside space-y-2'>
-                {project.features.map((feature, index) => (
-                  <li key={index} className='text-base-content'>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+              <div className='bg-base-200 p-6 rounded-lg'>
+                <h3 className='text-2xl font-bold mb-4 flex items-center'>
+                  <FaLightbulb className='mr-2 ' /> Key Features
+                </h3>
+                <ul className='space-y-2'>
+                  {project.features?.map((feature, index) => (
+                    <li
+                      key={index}
+                      className='text-base-content flex items-start'>
+                      <span className='inline-block w-2 h-2 bg-primary rounded-full mt-2 mr-2'></span>
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ const Footer = () => {
             <FaLinkedin></FaLinkedin>
           </a>
         </div>
-        <p className='mt-3'>Copyright © 2022 - Mahmudul Haque Noor</p>
+        <p className='mt-3'>Copyright © 2024 - Mahmudul Haque Noor</p>
       </div>
     </footer>
   )

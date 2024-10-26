@@ -16,20 +16,20 @@ const postApi = baseApi.injectEndpoints({
       },
       providesTags: ['project']
     }),
-    // getSinglePost: builder.query({
-    //   query: (params) => {
-    //     return {
-    //       url: `/post/get-single/${params}`,
-    //       method: 'GET'
-    //     }
-    //   },
-    //   transformResponse: (response: TResponseRedux<IPost>) => {
-    //     return {
-    //       data: response.data
-    //     }
-    //   },
-    //   providesTags: ['posts']
-    // }),
+    getSingleProject: builder.query({
+      query: (params) => {
+        return {
+          url: `/project/get-single/${params}`,
+          method: 'GET'
+        }
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data
+        }
+      },
+      providesTags: ['project']
+    }),
     addProject: builder.mutation({
       query: (payload) => {
         return {
@@ -62,4 +62,8 @@ const postApi = baseApi.injectEndpoints({
   })
 })
 
-export const { useAddProjectMutation, useGetAllProjectsQuery } = postApi
+export const {
+  useAddProjectMutation,
+  useGetAllProjectsQuery,
+  useGetSingleProjectQuery
+} = postApi
