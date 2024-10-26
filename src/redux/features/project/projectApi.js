@@ -2,35 +2,20 @@ import { baseApi } from '../../api/baseApi'
 
 const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    // getAllPost: builder.query({
-    //   query: ({ searchTerm = '', category = '' }) => {
-    //     const params: Record<string, string> = {}
-
-    //     if (searchTerm) {
-    //       params.searchTerm = searchTerm
-    //     }
-
-    //     if (category) {
-    //       params.category = category
-    //     }
-
-    //     const queryString =
-    //       Object.keys(params).length > 0
-    //         ? new URLSearchParams(params).toString()
-    //         : ''
-
-    //     return {
-    //       url: queryString ? `/post/get-all?${queryString}` : '/post/get-all',
-    //       method: 'GET'
-    //     }
-    //   },
-    //   transformResponse: (response: TResponseRedux<IPost[]>) => {
-    //     return {
-    //       data: response.data
-    //     }
-    //   },
-    //   providesTags: ['posts']
-    // }),
+    getAllProjects: builder.query({
+      query: () => {
+        return {
+          url: '/project/get-all',
+          method: 'GET'
+        }
+      },
+      transformResponse: (response) => {
+        return {
+          data: response.data
+        }
+      },
+      providesTags: ['project']
+    }),
     // getSinglePost: builder.query({
     //   query: (params) => {
     //     return {
@@ -77,4 +62,4 @@ const postApi = baseApi.injectEndpoints({
   })
 })
 
-export const { useAddProjectMutation } = postApi
+export const { useAddProjectMutation, useGetAllProjectsQuery } = postApi

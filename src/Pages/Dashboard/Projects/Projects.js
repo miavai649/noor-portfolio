@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import AddProjectModal from '../../../component/AddProjectModal'
 import Spinner from '../../../component/Spinner'
 import ProjectCard from '../../Home/Porjects/ProjectCard'
+import { useGetAllProjectsQuery } from '../../../redux/features/project/projectApi'
 
 const Projects = () => {
   const [projects, setProjects] = useState([])
@@ -21,6 +22,8 @@ const Projects = () => {
         setIsLoading(false)
       })
   }, [])
+  const { data: projectsData } = useGetAllProjectsQuery({})
+  console.log('🚀 ~ Projects ~ projectsData:', projectsData)
 
   if (isLoading) {
     return <Spinner />

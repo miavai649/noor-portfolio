@@ -1,58 +1,82 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa'
+import { FaGithub, FaExternalLinkAlt, FaCalendarAlt } from 'react-icons/fa'
+import moment from 'moment'
 
 const ProjectCard = ({ project }) => {
-  const { id, image, title, summary, liveLink, githubClient } = project
+  const [isHovered, setIsHovered] = useState(false)
+
+  const formattedStartDate = project?.startDate
+    ? moment(project.startDate).format('YYYY-MM-DD')
+    : ''
+  const formattedEndDate = project?.endDate
+    ? moment(project.endDate).format('YYYY-MM-DD')
+    : ''
 
   return (
-    <motion.div
-      className='bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300'
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}>
-      <div className='relative overflow-hidden group'>
+    <div
+      className='card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden'
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+      <figure className='relative'>
         <img
-          src={image}
-          alt={title}
-          className='w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110'
+          src={project?.thumbnail}
+          alt={project?.title}
+          className='w-full h-56 object-cover'
         />
-        <div className='absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300'>
-          <div className='text-white text-center'>
-            <h3 className='text-2xl font-bold mb-2'>{title}</h3>
-            <p className='text-sm mb-4'>{summary}</p>
-            <div className='flex justify-center space-x-4'>
-              <a
-                href={githubClient}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-white hover:text-yellow-400 transition-colors duration-300'>
-                <FaGithub size={24} />
-              </a>
-              <a
-                href={liveLink}
-                target='_blank'
-                rel='noopener noreferrer'
-                className='text-white hover:text-yellow-400 transition-colors duration-300'>
-                <FaExternalLinkAlt size={24} />
-              </a>
-            </div>
+        {isHovered && (
+          <div className='absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center space-x-4 transition-opacity duration-300'>
+            <a
+              href={project?.githubLink}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-circle btn-primary'>
+              <FaGithub className='text-2xl' />
+            </a>
+            <a
+              href={project?.liveLink}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='btn btn-circle btn-primary'>
+              <FaExternalLinkAlt className='text-2xl' />
+            </a>
           </div>
+        )}
+      </figure>
+      <div className='card-body p-6'>
+        <h2 className='card-title text-2xl font-bold text-primary mb-2'>
+          {project?.title}
+        </h2>
+        <p className='text-base-content opacity-70 mb-4'>
+          {project?.shortDescription}
+        </p>
+        <div className='flex flex-wrap gap-2 mb-4'>
+          {project?.technologies?.slice(0, 4).map((tech, index) => (
+            <span key={index} className='badge badge-primary text-xs'>
+              {tech}
+            </span>
+          ))}
+          {project?.technologies?.length > 4 && (
+            <span className='badge badge-primary text-xs'>
+              +{project?.technologies?.length - 4} more
+            </span>
+          )}
+        </div>
+        <div className='flex items-center text-sm text-base-content opacity-70 mb-4'>
+          <FaCalendarAlt className='mr-2' />
+          <span>
+            {formattedStartDate} - {formattedEndDate}
+          </span>
+        </div>
+        <div className='card-actions justify-end'>
+          <Link
+            to={`/details/${project?._id}`}
+            className='btn btn-primary btn-sm'>
+            View Details
+          </Link>
         </div>
       </div>
-      <div className='p-6 flex justify-between items-center'>
-        <div>
-          <h3 className='text-xl font-bold mb-2'>{title}</h3>
-          <p className='text-gray-600 mb-4'>{summary}</p>
-        </div>
-        <Link
-          to={`/details/${id}`}
-          className='inline-block bg-yellow-400 text-yellow-900 font-bold py-2 px-4 rounded hover:bg-yellow-500 transition-colors duration-300'>
-          View Details
-        </Link>
-      </div>
-    </motion.div>
+    </div>
   )
 }
 
