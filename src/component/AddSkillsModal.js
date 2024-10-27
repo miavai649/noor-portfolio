@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaImage, FaTrash, FaPlusCircle } from 'react-icons/fa'
+import { useAddSkillMutation } from '../redux/features/skills/skillsApi'
+import toast from 'react-hot-toast'
 
 const AddSkillsModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -44,10 +46,33 @@ const AddSkillsModal = () => {
     setImagePreview('') // Clear the image preview
   }
 
-  const onSubmit = (data) => {
-    const formData = { ...data, image: imageFile }
-    console.log(formData)
-    closeModal()
+  const [handleSkill, { isLoading }] = useAddSkillMutation()
+
+  const onSubmit = async (data) => {
+    const formData = new FormData()
+
+    const projectData = {
+      ...data
+    }
+
+    formData.append('payload', JSON.stringify(projectData))
+
+    if (imageFile) {
+      formData.append('logo', imageFile)
+    }
+
+    try {
+      const res = await handleSkill(formData)
+
+      if ('error' in res) {
+        toast.error('Failed to create skill', { duration: 2000 })
+      } else {
+        toast.success('Skill created successfully', { duration: 2000 })
+        closeModal()
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 })
+    }
   }
 
   return (
@@ -82,12 +107,12 @@ const AddSkillsModal = () => {
               </div>
 
               <div>
-                <label className='label' htmlFor='type'>
-                  <span className='label-text'>Type</span>
+                <label className='label' htmlFor='category'>
+                  <span className='label-text'>Category</span>
                 </label>
                 <input
-                  id='type'
-                  {...register('type', { required: 'Type is required' })}
+                  id='category'
+                  {...register('category', { required: 'Type is required' })}
                   className='input input-bordered w-full'></input>
                 {errors.type && (
                   <span className='text-error text-sm'>
@@ -126,16 +151,16 @@ const AddSkillsModal = () => {
               </div>
 
               {imagePreview && (
-                <div className='relative mt-4'>
+                <div className='relative mt-4 w-24 h-24'>
                   <img
                     src={imagePreview}
                     alt='Logo Preview'
-                    className='w-full h-32 object-cover rounded-lg'
+                    className='w-full h-full object-contain rounded-md'
                   />
                   <button
                     type='button'
                     onClick={removeImage}
-                    className='absolute top-2 right-2 bg-red-500 text-white p-1 rounded-full'>
+                    className='absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full'>
                     <FaTrash size={12} />
                   </button>
                 </div>
@@ -144,8 +169,10 @@ const AddSkillsModal = () => {
               <div className='modal-action flex gap-4 justify-end'>
                 <button
                   type='submit'
-                  className='btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all'>
-                  Submit
+                  className={`btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all ${
+                    isLoading && 'loading loading-spinner'
+                  }`}>
+                  {isLoading ? 'Submitting...' : 'Submit'}
                 </button>
                 <button
                   type='button'

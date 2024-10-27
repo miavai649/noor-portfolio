@@ -77,7 +77,9 @@ const Navbar = () => {
                 </a>
               ))}
               <a
+                target='_blank'
                 href={myResume}
+                rel='noreferrer'
                 download='noor-resume'
                 className={`inline-flex items-center ${
                   scrolled ? 'text-gray-700' : 'text-white'
