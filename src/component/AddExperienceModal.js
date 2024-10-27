@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaPlusCircle } from 'react-icons/fa'
+import { useAddExperienceMutation } from '../redux/features/experience/experienceApi'
+import toast from 'react-hot-toast'
 
 const AddExperienceModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,14 +28,26 @@ const AddExperienceModal = () => {
     })
   }
 
-  const onSubmit = (data) => {
-    const formattedData = {
+  const [handleAddExperience, { isLoading }] = useAddExperienceMutation()
+
+  const onSubmit = async (data) => {
+    const experienceData = {
       ...data,
       startTime: formatDate(data.startTime),
       endTime: formatDate(data.endTime)
     }
-    console.log(formattedData)
-    closeModal()
+    try {
+      const res = await handleAddExperience(experienceData)
+
+      if ('error' in res) {
+        toast.error('Failed to create experience', { duration: 2000 })
+      } else {
+        toast.success('Experience created successfully', { duration: 2000 })
+        closeModal()
+      }
+    } catch (error) {
+      toast.error('Something went wrong', { duration: 2000 })
+    }
   }
 
   return (
@@ -51,13 +65,13 @@ const AddExperienceModal = () => {
             <h3 className='font-bold text-lg mb-4'>Add New Experience</h3>
             <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
               <div>
-                <label className='label' htmlFor='companyName'>
+                <label className='label' htmlFor='company'>
                   <span className='label-text'>Company Name</span>
                 </label>
                 <input
                   type='text'
-                  id='companyName'
-                  {...register('companyName', {
+                  id='company'
+                  {...register('company', {
                     required: 'Company Name is required'
                   })}
                   className='input input-bordered w-full'
@@ -146,8 +160,10 @@ const AddExperienceModal = () => {
               <div className='modal-action flex gap-4 justify-end'>
                 <button
                   type='submit'
-                  className='btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all'>
-                  Submit
+                  className={`btn bg-primary text-white hover:bg-primary-dark focus:ring focus:ring-primary-light transition-all ${
+                    isLoading && 'loading loading-spinner'
+                  }`}>
+                  {isLoading ? 'Submitting...' : 'Submit'}
                 </button>
                 <button
                   type='button'
