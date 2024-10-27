@@ -2,10 +2,10 @@ import { baseApi } from '../../api/baseApi'
 
 const experienceApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAllProjects: builder.query({
+    getAllExperiences: builder.query({
       query: () => {
         return {
-          url: '/project/get-all',
+          url: '/experience/get-all',
           method: 'GET'
         }
       },
@@ -16,10 +16,10 @@ const experienceApi = baseApi.injectEndpoints({
       },
       providesTags: ['project']
     }),
-    getSingleProject: builder.query({
+    getSingleExperience: builder.query({
       query: (params) => {
         return {
-          url: `/project/get-single/${params}`,
+          url: `/experience/get-single/${params}`,
           method: 'GET'
         }
       },
@@ -64,6 +64,6 @@ const experienceApi = baseApi.injectEndpoints({
 
 export const {
   useAddExperienceMutation,
-  useGetAllProjectsQuery,
-  useGetSingleProjectQuery
+  useGetAllExperiencesQuery,
+  useGetSingleExperienceQuery
 } = experienceApi

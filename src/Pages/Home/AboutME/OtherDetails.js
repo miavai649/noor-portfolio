@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState } from 'react'
 import { FaCode, FaGraduationCap, FaBriefcase, FaHeart } from 'react-icons/fa'
+import { useGetAllExperiencesQuery } from '../../../redux/features/experience/experienceApi'
+import Spinner from '../../../component/Spinner'
 const OtherDetails = () => {
   const [activeTab, setActiveTab] = useState('personal')
 
@@ -10,6 +12,9 @@ const OtherDetails = () => {
     { id: 'experience', label: 'Experience', icon: FaBriefcase },
     { id: 'interests', label: 'Interests', icon: FaHeart }
   ]
+
+  const { data: experienceData, isLoading } = useGetAllExperiencesQuery({})
+  const experience = experienceData?.data
 
   const tabContent = {
     personal: (
@@ -107,19 +112,25 @@ const OtherDetails = () => {
         <h3 className='text-2xl font-bold mb-4 text-gray-800'>
           Work Experience
         </h3>
-        <div className='bg-white rounded-lg p-4 shadow-md mb-4'>
-          <h4 className='text-xl font-semibold text-gray-700'>Devnest</h4>
-          <p className='text-yellow-500 italic'>
-            MERN Stack Developer | January 2023 - August 2023
-          </p>
-          <p className='text-gray-600 mt-2'>
-            Developed and maintained web applications using the MERN stack.
-            Collaborated with cross-functional teams to deliver high-quality
-            software, implemented responsive designs, ensured cross-browser
-            compatibility, and contributed to improving development processes
-            through code reviews.
-          </p>
-        </div>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <>
+            {experience?.map((exp, index) => (
+              <div
+                key={index}
+                className='bg-white rounded-lg p-4 shadow-md mb-4'>
+                <h4 className='text-xl font-semibold text-gray-700'>
+                  {exp?.company}
+                </h4>
+                <p className='text-yellow-500 italic'>
+                  {exp?.designation} | {`${exp?.startTime} - ${exp?.endTime}`}
+                </p>
+                <p className='text-gray-600 mt-2'>{exp?.description}</p>
+              </div>
+            ))}
+          </>
+        )}
       </motion.div>
     ),
 

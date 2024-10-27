@@ -1,32 +1,7 @@
 import { FaEdit, FaTrash } from 'react-icons/fa'
 import AddExperienceModal from '../../../component/AddExperienceModal'
-
-const experience = [
-  {
-    company: 'ABC Corp',
-    designation: 'Software Engineer',
-    startTime: 'January 2023',
-    endTime: 'August 2023',
-    description:
-      'Developed and maintained web applications using the MERN stack. Collaborated with cross-functional teams to deliver high-quality software, implemented responsive designs, ensured cross-browser compatibility, and contributed to improving development processes through code reviews.'
-  },
-  {
-    company: 'XYZ Ltd',
-    designation: 'Frontend Developer',
-    startTime: 'September 2022',
-    endTime: 'December 2022',
-    description:
-      'Worked on developing user interfaces and improving website performance. Used React and Tailwind CSS to build responsive components.'
-  },
-  {
-    company: 'Tech Solutions',
-    designation: 'Intern',
-    startTime: 'June 2022',
-    endTime: 'August 2022',
-    description:
-      'Assisted in developing web applications and learned about software development life cycle. Gained hands-on experience with HTML, CSS, and JavaScript.'
-  }
-]
+import { useGetAllExperiencesQuery } from '../../../redux/features/experience/experienceApi'
+import Spinner from '../../../component/Spinner'
 
 const Experience = () => {
   const handleEdit = (index) => {
@@ -38,6 +13,10 @@ const Experience = () => {
     console.log(`Delete experience at index: ${index}`)
     // Logic for deleting the experience
   }
+
+  const { data: experienceData, isLoading } = useGetAllExperiencesQuery({})
+
+  const experience = experienceData?.data
 
   return (
     <div className='p-4 lg:p-8'>
@@ -59,30 +38,34 @@ const Experience = () => {
               <th className='py-3 px-6 text-left'>Actions</th>
             </tr>
           </thead>
-          <tbody className='text-gray-600 text-sm font-light'>
-            {experience.map((exp, index) => (
-              <tr
-                key={index}
-                className='border-b border-gray-200 hover:bg-gray-100'>
-                <td className='py-4 px-6'>{exp.company}</td>
-                <td className='py-4 px-6'>{exp.designation}</td>
-                <td className='py-4 px-6'>{`${exp.startTime} - ${exp.endTime}`}</td>
-                <td className='py-4 px-6'>{exp.description}</td>
-                <td className='py-4 px-6 flex space-x-2'>
-                  <button
-                    onClick={() => handleEdit(index)}
-                    className='btn btn-sm bg-blue-100 hover:bg-blue-200 text-blue-600 border border-blue-400 rounded-full p-2'>
-                    <FaEdit />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(index)}
-                    className='btn btn-sm bg-red-100 hover:bg-red-200 text-red-600 border border-red-400 rounded-full p-2'>
-                    <FaTrash />
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+          {isLoading ? (
+            <Spinner />
+          ) : (
+            <tbody className='text-gray-600 text-sm font-light'>
+              {experience?.map((exp, index) => (
+                <tr
+                  key={index}
+                  className='border-b border-gray-200 hover:bg-gray-100'>
+                  <td className='py-4 px-6'>{exp?.company}</td>
+                  <td className='py-4 px-6'>{exp?.designation}</td>
+                  <td className='py-4 px-6'>{`${exp?.startTime} - ${exp?.endTime}`}</td>
+                  <td className='py-4 px-6'>{exp?.description}</td>
+                  <td className='py-4 px-6 flex space-x-2'>
+                    <button
+                      onClick={() => handleEdit(index)}
+                      className='btn btn-sm bg-blue-100 hover:bg-blue-200 text-blue-600 border border-blue-400 rounded-full p-2'>
+                      <FaEdit />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(index)}
+                      className='btn btn-sm bg-red-100 hover:bg-red-200 text-red-600 border border-red-400 rounded-full p-2'>
+                      <FaTrash />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          )}
         </table>
       </div>
     </div>
